@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tag_library %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/restaurant_detail.css' %}">
+
+<!-- Single Page Header start -->
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6">Shop Detail</h1>
+    <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Pages</a></li>
+        <li class="breadcrumb-item active text-white">Shop Detail</li>
+    </ol>
+</div>
+
+<div class="container-fluid py-5 mt-5">
+  <div class="container">
+   <div class="col-lg-12">
+    
+        <div class="restaurant-banner  d-flex flex-column flex-md-row  gap-2 mb-5" style="height: 20rem;">
+            <div style="width: 90%;">
+                <img src="{{restaurant.banner_image1.url}}" class="img-fluid rounded "
+                    style="width: 100%; height: 100%; object-fit: cover;" />
+            </div>
+            <div class="d-flex flex-column gap-2">
+                <img src="{{restaurant.banner_image2.url}}" style=" height: 48%; object-fit: cover;" />
+                <img src="{{restaurant.banner_image3.url}}" style=" height: 48%; object-fit: cover;" />
+            </div>
+            <div>
+                <img src="{{restaurant.banner_image4.url}}" style=" height: 100%; object-fit: cover;" />
+            </div>
+        </div>
+
+        <nav>
+            <div class="nav nav-tabs mb-3">
+                <button class="nav-link active border-white border-bottom-0" type="button" role="tab" id="nav-about-tab"
+                    data-bs-toggle="tab" data-bs-target="#nav-about" aria-controls="nav-about"
+                    aria-selected="true">Description</button>
+                <button class="nav-link border-white border-bottom-0" type="button" role="tab" id="nav-mission-tab"
+                    data-bs-toggle="tab" data-bs-target="#nav-mission" aria-controls="nav-mission"
+                    aria-selected="false">Reviews</button>
+            </div>
+        </nav>
+        <div class="tab-content mb-5">
+            <div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                <div class="mt-4">
+                    <h1 class="fw-bold ">{{restaurant.name}}</h1>
+                    <p>{{restaurant.address}}</p>
+                    <p><i class="fa fa-phone" style="color: #0fc224; transform: rotate(-248deg); font-size: 1.3rem;"> </i>
+                    <span class="ms-2" style="text-decoration: underline;">{{restaurant.phone_number}}</span></p>
+                </div>
+                
+            </div>
+            <div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
+                <div class="d-flex">
+                    <img src="img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;"
+                        alt="">
+                    <div class="">
+                        <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
+                        <div class="d-flex justify-content-between">
+                            <h5>Jason Smith</h5>
+                            <div class="d-flex mb-3">
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <p>The generated Lorem Ipsum is therefore always free from repetition injected humour, or
+                            non-characteristic
+                            words etc. Susp endisse ultricies nisi vel quam suscipit </p>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <img src="img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;"
+                        alt="">
+                    <div class="">
+                        <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
+                        <div class="d-flex justify-content-between">
+                            <h5>Sam Peters</h5>
+                            <div class="d-flex mb-3">
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-dark">The generated Lorem Ipsum is therefore always free from repetition injected
+                            humour, or non-characteristic
+                            words etc. Susp endisse ultricies nisi vel quam suscipit </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="nav-vision" role="tabpanel">
+                <p class="text-dark">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam
+                    amet diam et eos labore. 3</p>
+                <p class="mb-0">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore.
+                    Clita erat ipsum et lorem et sit</p>
+            </div>
+        </div>
+   </div>
+
+   <div class="row gap-5">
+     <div class="col-xl-2">
+        <div class="mb-4">
+            <h4>Categories</h4>
+            <ul class="list-unstyled fruite-categorie">
+                {% for category in categories %}
+                <li>
+                    <div class="d-flex justify-content-between fruite-name">
+                        <a href="#"><i class="fas fa-apple-alt me-2"></i>{{ category.name}}</a>
+                        <span>({{category.food_items.all.count}})</span>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+      </div>
+
+      <div class="col-xl-8">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        {% for category in categories %}
+
+                <div class="mt-2">
+                    <p class="category-title">{{ category.name}}</p>
+                    {%for food in category.food_items.all %}
+                    <div class="d-flex mt-4 border-bottom pb-5">
+                        <div class="food-item-description w-75">
+                            <p class="food-title">{{ food.name }}</p>
+                            <p>₹ {{food.price_per_plate}}</p>
+                            <p class="w-75">{{ food.discription}}</p>
+                        </div>
+                        <div class="image-container">
+                            <img src="{{food.image.url }}"
+                                alt="Food Item" />
+                            {% if  user.is_authenticated %}
+                            <p class="add-button add-to-cart" data-id="{{food.id}}" {% if food.id|to_str in cart_dict %} style="display: none;" {% endif %}>ADD</p>
+                            
+                            
+                            <div class="cart-controls" id="cart-button-{{food.id}}" {% if food.id|to_str not in cart_dict %}style="display: none;"{% endif %}>
+                                <button class="cart-btn minus" onclick="updateCart('{{ food.id }}', 'decrease')">−</button>
+                                <span class="quantity" id="quantity-{{ food.id }}">{{ cart_dict|dict_key:food.id|default:1 }}</span>
+                                <button class="cart-btn plus" onclick="updateCart('{{ food.id }}', 'increase')">+</button>
+                            </div>
+                            {% else %}
+                            <p class="add-button add-to-cart" data-id="{{food.id}}">ADD</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+
+                {% endfor %}
+
+      </div>
+   </div>
+  </div>
+</div>
+<!-- Single Page Header End -->
+<script src="{% static 'js/restaurant_detail.js' %}" ></script>
+{% endblock %}

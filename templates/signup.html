@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+
+
+<div class="wrapper">
+    <div class="title">
+        Signup 
+    </div>
+    <form action="/user/customer/signup" method="post">
+        {% for message in messages %}
+
+        <div class="alert alert-success">
+            <a class="close" href="#" data-dismiss="alert">×</a>
+            {{ message }}
+        </div>
+
+        {% endfor %}
+        
+        {% csrf_token %}
+        <div class="field">
+            <input type="email" name="email" required>
+            <label>Email</label>
+        </div>
+        <div class="field">
+            <input type="text" name="profile_name" required>
+            <label>Profile Name</label>
+        </div>
+        <div class="field">
+            <input type="password" name="password" required autocomplete="new-password">
+            <label>Password</label>
+        </div>
+        <div class="field">
+            <input type="password" name="confirm_password" required autocomplete="new-password">
+            <label>Confirm Password</label>
+        </div>
+
+        <div class="content">
+            <div class="checkbox">
+                <input type="checkbox" id="remember-me">
+                <label for="remember-me">Remember me</label>
+            </div>
+            <div class="pass-link">
+                <a href="#">Forgot password?</a>
+            </div>
+        </div>
+        <div class="field">
+            <input type="submit" value="Login">
+        </div>
+        <div class="signup-link">
+            Not a member? <a href="#">Signup now</a>
+        </div>
+    </form>
+</div>
+
+
+
+{% endblock %}
