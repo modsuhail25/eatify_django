@@ -1,8 +1,8 @@
 from django.contrib import admin
 from .models import Cusines,Restaurant,FoodItem,Category
-from leaflet.admin import LeafletGeoAdmin
 
-class RestaurantAdmin(LeafletGeoAdmin):
+
+class RestaurantAdmin(admin.ModelAdmin):
     pass
 
 class FoodItemAdmin(admin.ModelAdmin):
