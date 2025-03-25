@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
 
     "phonenumber_field",
-    'leaflet',
+   
     'sweetify',
 
     'users.apps.UsersConfig',

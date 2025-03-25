@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Cart,CartItem,Address,Order
 from vendor.models import FoodItem
 from django.http import JsonResponse
+import sweetify
 import json
 from django.views.decorators.csrf import csrf_exempt
 
@@ -141,7 +142,8 @@ def place_order(request):
 
         cart = Cart.objects.get(user=request.user)
         cart.place_order(address=address)
-        return redirect("checkout")
+        sweetify.success(request,"Order placed successfully")
+        return redirect("/")
     
 def view_order(request):
     if request.user.is_authenticated:

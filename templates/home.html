@@ -11,9 +11,10 @@
                       
                       <h1 class="mb-5 display-3 text-primary">Organic Veggies & Fruits Foods</h1>
                       <div class="position-relative mx-auto">
-                          <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="number" placeholder="Search">
-                          <button type="submit" class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100" style="top: 0; right: 25%;">Submit Now</button>
-                      </div>
+                        <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="text" placeholder="Search" id="restaurant-search">
+                        <button type="submit" class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100" style="top: 0; right: 25%;">Submit Now</button>
+                        <ul id="suggestions-dropdown" class="dropdown-menu position-absolute w-75" style="display: none;"></ul>
+                    </div>
                   </div>
                   
               </div>
@@ -367,5 +368,39 @@
       </div>
       <!-- Tastimonial End -->
 
+      <script>
+       document.getElementById('restaurant-search').addEventListener('input', function() {
+    const query = this.value;
+    console.log("Input query:", query); // Log the input value
+    if (query.length > 2) {
+        fetch(`/search-restaurants?query=${query}`)
+            .then(response => {
+                console.log("Response received:", response); // Log the response
+                return response.json();
+            })
+            .then(data => {
+                console.log("Data received:", data); // Log the data
+                const dropdown = document.getElementById('suggestions-dropdown');
+                dropdown.innerHTML = '';
+                if (data.length > 0) {
+                    data.forEach(restaurant => {
+                        const li = document.createElement('li');
+                        li.className = 'dropdown-item';
+                        li.textContent = restaurant.name; // Assuming restaurant has a name property
+                        dropdown.appendChild(li);
+                    });
+                    dropdown.style.display = 'block';
+                } else {
+                    dropdown.style.display = 'none';
+                }
+            });
+    } else {
+        document.getElementById('suggestions-dropdown').style.display = 'none';
+    }
+});
+    </script>
+
 
 {% endblock %}
+
+
