@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid py-5 " style="margin-top: 10rem;">
+    <div class="container py-5">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Status</th>
+                   
+                  </tr>
+                </thead>
+                <tbody>
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    {% for order in orders %}
+                    {% for item in order.orderitem_set.all %}
+
+                    <tr>
+                       
+                        <td>
+                            <p class="mb-0 mt-4">{{order.order_id}}</p>
+                        </td>
+                        <td>
+                            <p class="mb-0 mt-4"> {{item.product_name}}</p>
+                        </td>
+                        <td>
+                            <p class="mb-0 mt-4"> {{item.quantity}}</p>
+                        </td>
+                        <td>
+                            <p class="mb-0 mt-4">₹ {{item.price}}</p>
+                        </td>
+                        <td>
+                            <p class="mb-0 mt-4"> {{order.order_status}}</p>
+                        </td>
+                        
+                    
+                    </tr>
+                    {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

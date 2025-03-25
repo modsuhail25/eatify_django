@@ -25,7 +25,8 @@ urlpatterns = [
     path('',views.index, name="homepage"),
     path('user/',include("users.urls")),
     path('restaurant/',include('vendor.urls')),
-    path('order/',include('order.urls'))
+    path('order/',include('order.urls')),
+    path('custom/admin/',include('customadmin.urls'))
 ]
 
 if settings.DEBUG:

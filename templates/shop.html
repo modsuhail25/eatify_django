@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content%}
+<div class="container-fluid py-5 "  style="margin-top: 10rem;">
+<div class="container">
+<div class="col-lg-12">
+    <div class="row g-4 justify-content-center" >
+        {% for restaurant in restaurants %}
+        <div class="col-md-6 col-lg-6 col-xl-4">
+            <div class="rounded position-relative fruite-item">
+                <div class="fruite-img">
+                    <img src="{{restaurant.profile_pic.url}}" class="img-fluid w-100 rounded-top" alt="">
+                </div>
+                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">{{restaurant.type}}</div>
+                <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                    <h4>{{restaurant.name}}</h4>
+                    <p>{{restaurant.description}}</p>
+                    <div class="d-flex justify-content-between flex-lg-wrap">
+                        <p class="text-dark fs-5 fw-bold mb-0">Tvm</p>
+                        <!-- <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+</div>
+
+
+{% endblock%}

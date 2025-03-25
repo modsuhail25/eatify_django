@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from .models import User,Customer
+from .models import User,Customer,CustomerProfile
 import sweetify
 from django.contrib.auth import login, authenticate,logout
 
@@ -23,8 +23,9 @@ def customer_signup(request):
             return redirect("customer-signup")
         
         user = User.objects.create_user(email=email,password=password,role = User.CUSTOMER)
-        customer = Customer.objects.create(user=user,profile_name = profile_name)
-        sweetify.success(request, 'Cheers to new toast')
+        customer = CustomerProfile.objects.create(user=user,profile_name = profile_name)
+        login(request,user)
+        sweetify.success(request, 'Account created')
         return redirect("/")
     return render(request,"signup.html")
 

@@ -1,4 +1,4 @@
-from django.contrib.gis.db import models
+from django.db import models
 from users.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -23,8 +23,8 @@ class Restaurant(models.Model):
 
     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="restaurant")
     name = models.CharField(max_length=100)
-    location = models.PointField()
-    area = models.PolygonField(null=True,blank=True)
+    description = models.CharField(max_length=40,null=True)
+    location = models.CharField(max_length=100)
     address = models.TextField()
     phone_number = PhoneNumberField()
     is_verfied = models.BooleanField(default=False)

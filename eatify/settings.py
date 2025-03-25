@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'home.apps.HomeConfig',
     'vendor.apps.VendorConfig',
-    'order.apps.OrderConfig'
+    'order.apps.OrderConfig',
+    'customadmin.apps.CustomadminConfig'
+
 ]
 
 MIDDLEWARE = [
@@ -90,12 +92,8 @@ WSGI_APPLICATION = 'eatify.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'eatify',
-        'USER': 'eatify_user',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
     }
 }
 

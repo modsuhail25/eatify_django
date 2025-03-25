@@ -1,0 +1,149 @@
+{% extends "admin/adminbase.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- Sale & Revenue Start -->
+ <section class="vh-100">
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-chart-line fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Today Sale</p>
+                    <h6 class="mb-0">$1234</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Total Sale</p>
+                    <h6 class="mb-0">$1234</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-chart-area fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Today Revenue</p>
+                    <h6 class="mb-0">$1234</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Total Revenue</p>
+                    <h6 class="mb-0">$1234</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sale & Revenue End -->
+
+
+
+
+
+<!-- Recent Sales Start -->
+<div class="container-fluid pt-4 px-4 vh-100">
+    <div class="bg-secondary text-center rounded p-4 h-100">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Orders</h6>
+           
+        </div>
+        <div class="">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-white">
+                        <!-- <th scope="col"><input class="form-check-input" type="checkbox"></th> -->
+                        <th scope="col">Order Id</th>
+                        <th scope="col">Food Name</th>
+                        <th scope="col">Customer</th>
+                        <!-- <th scope="col">Quantity</th> -->
+                        <th scope="col">Amount</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders%}
+                    
+                    <tr>
+                       
+                        <td>{{ order.order_id}}</td>
+                        <td>
+                            {% for item in order.orderitem_set.all %}
+                            {{item.product_name }}<span>×</span>{{item.quantity}} ,
+                            {% endfor %}
+                        </td>
+                        <td>{{ order.address.customer_name}}</td>
+                        <!-- <td>{{ item.quantity}}</td> -->
+                        <td>{{ order.get_total}}</td>
+                        <td>
+                            <select class="status-dropdown bg-secondary border-0 rounded-0 rounded-bottom m-0 text-light border-0 p-1" data-order-id="{{ order.order_id }}">
+                                <option value="placed" {% if order.order_status == "placed" %}selected{% endif %}>Placed</option>
+                                <option value="accepted" {% if order.order_status == "accepted" %}selected{% endif %}>Accepted</option>
+                                <option value="ready" {% if order.order_status == "ready" %}selected{% endif %}>Ready</option>
+                                <option value="picked_up" {% if order.order_status == "picked_up" %}selected{% endif %}>Picked Up</option>
+                            </select>
+                            
+                        </td>
+                        <td><a class="btn btn-sm btn-primary update-status-btn" href="" data-order-id="{{ order.order_id }}">Update Status</a></td>
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Recent Sales End -->
+</section>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".update-status-btn").forEach(function (button) {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+            var orderId = this.getAttribute("data-order-id");
+            var row = this.closest("tr");
+            var newStatus = row.querySelector(".status-dropdown").value;
+            console.log("hhee",newStatus,orderId)
+
+            fetch("{% url 'update_order_status' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: `order_id=${orderId}&status=${newStatus}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Status updated successfully!");
+                } else {
+                    alert("Error updating status.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Error updating status.");
+            });
+        });
+    });
+});
+
+</script>
+
+
+{% endblock %}
