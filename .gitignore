@@ -14,7 +14,7 @@ config/settings/local.py
 
 # Static and media files
 staticfiles/
-media/
+
 
 # IDE and editor files
 .vscode/
