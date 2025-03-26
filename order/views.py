@@ -5,6 +5,7 @@ from django.http import JsonResponse
 import sweetify
 import json
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 
 def add_to_cart(request):
@@ -95,7 +96,7 @@ def remove_food_item(request):
         
 
 
-
+@login_required(login_url="/user/customer/signin")
 def view_cart(request):
     if request.user.is_authenticated:
         cart_items = []
@@ -144,6 +145,7 @@ def place_order(request):
         cart.place_order(address=address)
         sweetify.success(request,"Order placed successfully")
         return redirect("/")
+
     
 def view_order(request):
     if request.user.is_authenticated:

@@ -9,7 +9,7 @@ class Cusines(models.Model):
         return self.name
 
 
-class Restaurant(models.Model):
+class   Restaurant(models.Model):
     
     VEG = "veg"
     NON_VEG = "non_veg"
@@ -34,7 +34,7 @@ class Restaurant(models.Model):
     banner_image3 = models.ImageField(upload_to="restaurant/banner",null=True)
     banner_image4 = models.ImageField(upload_to="restaurant/banner",null=True)
     type = models.CharField(max_length=20,choices=type)
-    cusines = models.ManyToManyField(Cusines)
+    cusines = models.ManyToManyField(Cusines,null=True)
 
     def __str__(self):
         return self.name

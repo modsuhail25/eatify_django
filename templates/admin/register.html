@@ -1,0 +1,94 @@
+{% extends "admin/adminbase.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block content%}
+<div class="container-fluid pt-4 px-4">
+    <div class="row py-5 bg-secondary rounded align-items-center justify-content-center mx-0">
+        <div class="col-md-10 text-center">
+            <h2 class="text-white mb-4">Vendor Registration</h2>
+            <form method="post" enctype="multipart/form-data" class="">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="form-floating mb-3 col-lg-6">
+                        <input type="text" class="form-control" name="name" id="floatingInput"
+                            placeholder="name@example.com" required>
+                        <label for="floatingInput">Restaurant Name</label>
+                    </div>
+                    <div class="form-floating mb-3 col-lg-6 ">
+                        <input type="text" class="form-control" id="floatingPassword"
+                            placeholder="Location" required>
+                        <label for="floatingPassword">Location</label>
+                    </div>
+                </div>
+
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Description" name="description"
+                        id="floatingTextarea" style="height: 150px;" required></textarea>
+                    <label for="floatingTextarea">Description</label>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="form-floating mb-3 col-lg-6">
+                        <textarea class="form-control" name="address" placeholder="address"
+                        id="floatingTextarea" style="height: 100px;" required></textarea>
+                        <label for="floatingInput">Address</label>
+                    </div>
+                    <div class="form-floating mb-3 col-lg-6">
+                        <input type="text" name="phone_number" class="form-control" id="floatingPassword"
+                            placeholder="+919895523445" required>
+                        <label for="floatingPassword">Phone Number</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Profile Pic</label>
+                        <input class="form-control bg-dark" type="file" name="profile_pic" id="formFile" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Banner Image 1</label>
+                        <input class="form-control bg-dark" type="file" name="banner_image1" id="formFile" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Banner Image 2</label>
+                        <input class="form-control bg-dark" type="file" name="banner_image2" id="formFile" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Banner Image 3</label>
+                        <input class="form-control bg-dark" type="file" name="banner_image3" id="formFile" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Banner Image 4</label>
+                        <input class="form-control bg-dark" type="file" name="banner_image4" id="formFile" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="formFile" class="form-label">Cusines</label>
+                    <select class="form-select form-select-lg mb-3" name="type" aria-label=".form-select-lg example" required>
+                        <option selected>Restaurant Type</option>
+                        <option value="veg">Veg</option>
+                        <option value="non_veg">Non Veg</option>
+                        <option value="mixed">Mixed</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="formFile" class="form-label">Cusines</label>
+                    <select class="form-select" name="cusines" multiple aria-label="multiple select example" required>
+                        {% for cusine in cusines %}
+                        <option value="{{cusine.id}}">{{cusine.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+
+                <button type="submit" class="btn btn-primary w-75 mt-3">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock%}

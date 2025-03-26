@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     "phonenumber_field",
    
     'sweetify',
+    "crispy_forms",
+    "crispy_bootstrap5",
 
     'users.apps.UsersConfig',
     'home.apps.HomeConfig',
@@ -85,6 +87,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'eatify.wsgi.application'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 
 # Database
