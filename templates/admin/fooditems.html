@@ -1,0 +1,54 @@
+{% extends "admin/adminbase.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="container-fluid pt-4 ">
+    <div class="vh-100 bg-secondary rounded  justify-content-center mx-0">
+        <div class="d-flex justify-content-end ">
+            <a href="{% url 'add-food' %}" type="button" class="btn btn-outline-success btn-lg me-5 mt-5">Add Food Item</a>
+        </div>
+        <div class="table-responsive mt-5 px-1">
+            <table class="table table-bordered table-striped">
+              <thead class="table-dark">
+                <tr>
+                  
+                  <th>Food Name</th>
+                  <th>Image</th>
+                  <th>Category</th>
+                  <th>Price Per plate</th>
+                  <th>Is available</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in food_items %}
+                <tr>
+                  
+                  <td>{{item.name}}</td>
+                  <td>
+                    <img src="{{ item.image.url }}" class="img-fluid" style="width: 100px; height: 100px;">
+                  </td>
+                  <td>{{item.category.name}}</td>
+                  <td>{{item.price_per_plate}}</td>
+                  <td>
+                    {% if item.is_available %}
+                    <img src="{% static 'img/greentick.png' %}" style="height: 20px; width: 20px;">
+                    {% else %}
+                    <img src="{% static 'img/close.png' %}" style="height: 20px; width: 20px;">
+                    {% endif %}
+                  </td>
+                  <td>
+                    <a href="{% url 'food-detail' item.id%}" class="btn btn-primary">Edit</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          
+    </div>
+</div>
+
+{% endblock %}

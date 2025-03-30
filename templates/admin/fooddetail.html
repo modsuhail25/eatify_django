@@ -1,0 +1,61 @@
+{% extends "admin/adminbase.html" %}
+{% load static %}
+
+
+{% block content%}
+<div class="container-fluid pt-4 px-4">
+    <div class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">Edit Food Item</h6>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class=" mb-3">
+                        <label class="form-label" for="floatingInput">Food Name</label>
+                        <input type="text" class="form-control p-4" id="floatingInput" name="food_name" value="{{food_item.name}}">
+                        
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Food Item Image</label>
+                        <input type="file" value="" name="food_item_image" class="form-control bg-dark">
+                        <!-- {% if profile.profile_image %}
+                            <img src="{{ profile.profile_image.url }}" alt="Profile Image" class="mt-2 img-thumbnail" width="100">
+                        {% endif %} -->
+                    </div>
+
+                    <div class=" mb-3">
+                        <label for="floatingSelect" class="mb-2">Category</label>
+                        <select class="form-select"  name="category_id"  id="floatingSelect" aria-label="Floating label select example" style="padding: 1rem;">
+                            {% for cat in categories %}
+                            <option value="{{cat.id}}" {% if cat.id == food_item.category.id %}selected{%endif%}>{{cat.name}}</option>
+                            {% endfor %}
+                            
+                        </select>
+                        
+                    </div>
+                    <div class=" mb-3">
+                        <label for="floatingTextarea" class="mb-2">Discription</label>
+                        <textarea class="form-control" placeholder="" id="floatingTextarea" name="discription"
+                            style="height: 150px;" >{{food_item.discription}}</textarea>
+                    </div>
+
+                    <div class=" mb-3">
+                        <label class="mb-2" for="floatingPassword">Price Per Plate</label>
+                        <input type="number" name="price_per_plate" class="form-control p-4" value="{{food_item.price_per_plate}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <input class="form-check-input"   type="checkbox" id="gridCheck1" name="is_available" {% if food_item.is_available %} checked {% endif %}>
+                        <label class="form-check-label" for="gridCheck1">
+                            Is Available
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Save Changes</button> 
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}

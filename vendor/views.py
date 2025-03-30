@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Restaurant,FoodItem,Category
 from order.models import CartItem,Cart
+from django.db.models import Q
 
 
 def restaurants(request):
@@ -8,6 +9,16 @@ def restaurants(request):
     data = {
         "restaurants":restaurants
     }
+    return render(request,"shop.html",data)
+
+def search_restaurant(request):
+    query = request.GET.get("query")
+    print(query)
+    restaurants =  Restaurant.objects.filter(Q(name__icontains=query)|Q(location__icontains=query))
+    data = {
+        "restaurants":restaurants
+    }
+    print(restaurants)
     return render(request,"shop.html",data)
 
 

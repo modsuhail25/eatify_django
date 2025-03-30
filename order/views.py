@@ -16,10 +16,14 @@ def add_to_cart(request):
         if request.user.is_authenticated:
             try:
                 cart = Cart.objects.get(user=request.user)
+                
             except:
                 cart = Cart.objects.create(user=request.user)
 
             food_item_id = data.get("product_id",None)
+            restaurant = FoodItem.objects.get(id=food_item_id).restaurant
+            cart.restaurant =restaurant
+            cart.save()
             item = cart.add_food_item(food_item_id)
             data = {
                 "message":"Item added to cart",
