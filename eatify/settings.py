@@ -81,6 +81,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'order.context_processor.cart_item_count',
+                'order.context_processor.get_restaurant_name'
             ],
         },
     },

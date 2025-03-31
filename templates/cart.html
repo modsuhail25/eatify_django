@@ -4,7 +4,9 @@
 {% block content %}
 
 <div class="container-fluid py-5 " style="margin-top: 10rem;">
+
     <div class="container py-5">
+        {% if cart_items|length > 0 %}
         <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -61,10 +63,10 @@
                 </tbody>
             </table>
         </div>
-        <div class="mt-5">
+        <!-- <div class="mt-5">
             <input type="text" class="border-0 border-bottom rounded me-5 py-3 mb-4" placeholder="Coupon Code">
             <button class="btn border-secondary rounded-pill px-4 py-3 text-primary" type="button">Apply Coupon</button>
-        </div>
+        </div> -->
         <div class="row g-4 justify-content-end">
             <div class="col-8"></div>
             <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
@@ -91,6 +93,11 @@
                 </div>
             </div>
         </div>
+        {% else %}
+        <div>
+            <img src="{% static 'img/emptycart.jpg'%}" class="w-100" style="object-fit: contain; height: 300px;" alt="Contained Image">
+        </div>
+        {% endif %}
     </div>
 </div>
 

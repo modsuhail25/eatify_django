@@ -104,6 +104,11 @@ def vendor_register(request):
 
     return render(request,"admin/register.html",data)
 
+def vendor_logout(request):
+    logout(request)
+    sweetify.success(request, 'Successfuly logout')
+    return redirect("vendor-signin")
+
 
 def get_food_items(request):
     restaurant = request.user.restaurant
