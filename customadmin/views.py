@@ -155,7 +155,6 @@ def add_food_item(request):
         is_available = True if "is_available" in request.POST else False
         price_per_plate = request.POST.get("price_per_plate")
         category = Category.objects.get(id= request.POST.get("category_id"))
-        category = request.POST.get(category)
         image = request.FILES.get("food_item_image")
         FoodItem.objects.create(restaurant=request.user.restaurant,name=name,discription=discription,is_available=is_available,
             price_per_plate=price_per_plate,image=image,category=category)

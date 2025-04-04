@@ -13,8 +13,11 @@ def cart_item_count(request):
 def get_restaurant_name(request):
     user = request.user
     restaurant_name =""
-    if user.role == User.VENDOR:
-
-        restaurant = user.restaurant
-        restaurant_name = restaurant.name
+    if request.user.is_authenticated:
+        if user.role == User.VENDOR:
+            try:
+                restaurant = user.restaurant
+                restaurant_name = restaurant.name
+            except :
+                restaurant_name = ""
     return {"restaurant_name":restaurant_name}
